@@ -1,0 +1,34 @@
+% run as: /dlv.i386-apple-darwin.bin 3.4.txt
+% 3.4 broken arm
+
+%broken(right_arm) v broken(left_arm).
+%usable(left_arm) v usable(right_arm).
+%-usable(X) :- broken(X).
+
+% output
+% {usable(right_arm), broken(left_arm), -usable(left_arm)}
+% {usable(left_arm), broken(right_arm), -usable(right_arm)}
+
+% 3.3 edges adjacent
+% run as: ./dlv.i386-apple-darwin.bin -N=5 3.4.txt
+
+%k(X) :- #int(X).
+%lessthan(A,k(X)) :- #int(A), #succ(A,k(X)).
+%lessthan(A,C) :- lessthan(A,k(X)), #succ(k(X),C). 
+
+
+%:- elem #count >=k
+%:- edge(X,Y).
+%:- edge(X,X1) X1 not X and X1 not Y.
+%:- edge(Y,Y1) Y1 not Y and Y1 not X.
+
+%edge(a,b).
+%edge(b,c).
+%edge(b,a).
+
+% 3.6 specific answer set solution
+%a v b v c.
+%d :- a, not b.
+
+a(1) v b(1) v c(1).
+d(X):- a(X), not b(X).
